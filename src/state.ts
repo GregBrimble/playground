@@ -20,32 +20,32 @@ import * as dataset from "./dataset";
 const HIDE_STATE_SUFFIX = "_hide";
 
 /** A map between names and activation functions. */
-export let activations: {[key: string]: nn.ActivationFunction} = {
-  "relu": nn.Activations.RELU,
-  "tanh": nn.Activations.TANH,
-  "sigmoid": nn.Activations.SIGMOID,
-  "linear": nn.Activations.LINEAR
+export let activations: { [key: string]: nn.ActivationFunction } = {
+  relu: nn.Activations.RELU,
+  tanh: nn.Activations.TANH,
+  sigmoid: nn.Activations.SIGMOID,
+  linear: nn.Activations.LINEAR,
 };
 
 /** A map between names and regularization functions. */
-export let regularizations: {[key: string]: nn.RegularizationFunction} = {
-  "none": null,
-  "L1": nn.RegularizationFunction.L1,
-  "L2": nn.RegularizationFunction.L2
+export let regularizations: { [key: string]: nn.RegularizationFunction } = {
+  none: null,
+  L1: nn.RegularizationFunction.L1,
+  L2: nn.RegularizationFunction.L2,
 };
 
 /** A map between dataset names and functions that generate classification data. */
-export let datasets: {[key: string]: dataset.DataGenerator} = {
-  "circle": dataset.classifyCircleData,
-  "xor": dataset.classifyXORData,
-  "gauss": dataset.classifyTwoGaussData,
-  "spiral": dataset.classifySpiralData,
+export let datasets: { [key: string]: dataset.DataGenerator } = {
+  circle: dataset.classifyCircleData,
+  xor: dataset.classifyXORData,
+  gauss: dataset.classifyTwoGaussData,
+  spiral: dataset.classifySpiralData,
 };
 
 /** A map between dataset names and functions that generate regression data. */
-export let regDatasets: {[key: string]: dataset.DataGenerator} = {
+export let regDatasets: { [key: string]: dataset.DataGenerator } = {
   "reg-plane": dataset.regressPlane,
-  "reg-gauss": dataset.regressGaussian
+  "reg-gauss": dataset.regressGaussian,
 };
 
 export function getKeyFromValue(obj: any, value: any): string {
@@ -81,56 +81,60 @@ export enum Type {
   ARRAY_NUMBER,
   ARRAY_STRING,
   BOOLEAN,
-  OBJECT
+  OBJECT,
 }
 
 export enum Problem {
   CLASSIFICATION,
-  REGRESSION
+  REGRESSION,
 }
 
 export let problems = {
-  "classification": Problem.CLASSIFICATION,
-  "regression": Problem.REGRESSION
+  classification: Problem.CLASSIFICATION,
+  regression: Problem.REGRESSION,
 };
 
 export interface Property {
   name: string;
   type: Type;
-  keyMap?: {[key: string]: any};
-};
+  keyMap?: { [key: string]: any };
+}
 
 // Add the GUI state.
 export class State {
-
   private static PROPS: Property[] = [
-    {name: "activation", type: Type.OBJECT, keyMap: activations},
-    {name: "regularization", type: Type.OBJECT, keyMap: regularizations},
-    {name: "batchSize", type: Type.NUMBER},
-    {name: "dataset", type: Type.OBJECT, keyMap: datasets},
-    {name: "regDataset", type: Type.OBJECT, keyMap: regDatasets},
-    {name: "learningRate", type: Type.NUMBER},
-    {name: "regularizationRate", type: Type.NUMBER},
-    {name: "noise", type: Type.NUMBER},
-    {name: "networkShape", type: Type.ARRAY_NUMBER},
-    {name: "seed", type: Type.STRING},
-    {name: "showTestData", type: Type.BOOLEAN},
-    {name: "discretize", type: Type.BOOLEAN},
-    {name: "percTrainData", type: Type.NUMBER},
-    {name: "x", type: Type.BOOLEAN},
-    {name: "y", type: Type.BOOLEAN},
-    {name: "xTimesY", type: Type.BOOLEAN},
-    {name: "xSquared", type: Type.BOOLEAN},
-    {name: "ySquared", type: Type.BOOLEAN},
-    {name: "cosX", type: Type.BOOLEAN},
-    {name: "sinX", type: Type.BOOLEAN},
-    {name: "cosY", type: Type.BOOLEAN},
-    {name: "sinY", type: Type.BOOLEAN},
-    {name: "collectStats", type: Type.BOOLEAN},
-    {name: "tutorial", type: Type.STRING},
-    {name: "problem", type: Type.OBJECT, keyMap: problems},
-    {name: "initZero", type: Type.BOOLEAN},
-    {name: "hideText", type: Type.BOOLEAN}
+    { name: "activation", type: Type.OBJECT, keyMap: activations },
+    { name: "regularization", type: Type.OBJECT, keyMap: regularizations },
+    { name: "batchSize", type: Type.NUMBER },
+    { name: "dataset", type: Type.OBJECT, keyMap: datasets },
+    { name: "regDataset", type: Type.OBJECT, keyMap: regDatasets },
+    { name: "learningRate", type: Type.NUMBER },
+    { name: "regularizationRate", type: Type.NUMBER },
+    { name: "noise", type: Type.NUMBER },
+    { name: "networkShape", type: Type.ARRAY_NUMBER },
+    { name: "seed", type: Type.STRING },
+    { name: "showTestData", type: Type.BOOLEAN },
+    { name: "discretize", type: Type.BOOLEAN },
+    { name: "percTrainData", type: Type.NUMBER },
+    { name: "x", type: Type.BOOLEAN },
+    { name: "y", type: Type.BOOLEAN },
+    { name: "xTimesY", type: Type.BOOLEAN },
+    { name: "xSquared", type: Type.BOOLEAN },
+    { name: "ySquared", type: Type.BOOLEAN },
+    { name: "cosX", type: Type.BOOLEAN },
+    { name: "sinX", type: Type.BOOLEAN },
+    { name: "cosY", type: Type.BOOLEAN },
+    { name: "sinY", type: Type.BOOLEAN },
+    { name: "collectStats", type: Type.BOOLEAN },
+    { name: "tutorial", type: Type.STRING },
+    { name: "problem", type: Type.OBJECT, keyMap: problems },
+    { name: "initZero", type: Type.BOOLEAN },
+    { name: "hideText", type: Type.BOOLEAN },
+    { name: "usePSO", type: Type.BOOLEAN },
+    { name: "psoParticles", type: Type.NUMBER },
+    { name: "psoOmega", type: Type.NUMBER },
+    { name: "psoAlpha1", type: Type.NUMBER },
+    { name: "psoAlpha2", type: Type.NUMBER },
   ];
 
   [key: string]: any;
@@ -145,6 +149,11 @@ export class State {
   activation = nn.Activations.TANH;
   regularization: nn.RegularizationFunction = null;
   problem = Problem.CLASSIFICATION;
+  usePSO = false;
+  psoParticles = 21;
+  psoOmega = 0.7;
+  psoAlpha1 = 2;
+  psoAlpha2 = 2;
   initZero = false;
   hideText = false;
   collectStats = false;
@@ -168,7 +177,7 @@ export class State {
    * Deserializes the state from the url hash.
    */
   static deserializeState(): State {
-    let map: {[key: string]: string} = {};
+    let map: { [key: string]: string } = {};
     for (let keyvalue of window.location.hash.slice(1).split("&")) {
       let [name, value] = keyvalue.split("=");
       map[name] = value;
@@ -184,12 +193,14 @@ export class State {
     }
 
     // Deserialize regular properties.
-    State.PROPS.forEach(({name, type, keyMap}) => {
+    State.PROPS.forEach(({ name, type, keyMap }) => {
       switch (type) {
         case Type.OBJECT:
           if (keyMap == null) {
-            throw Error("A key-value map must be provided for state " +
-                "variables of type Object");
+            throw Error(
+              "A key-value map must be provided for state " +
+                "variables of type Object"
+            );
           }
           if (hasKey(name) && map[name] in keyMap) {
             state[name] = keyMap[map[name]];
@@ -208,7 +219,7 @@ export class State {
           break;
         case Type.BOOLEAN:
           if (hasKey(name)) {
-            state[name] = (map[name] === "false" ? false : true);
+            state[name] = map[name] === "false" ? false : true;
           }
           break;
         case Type.ARRAY_NUMBER:
@@ -227,8 +238,8 @@ export class State {
     });
 
     // Deserialize state properties that correspond to hiding UI controls.
-    getHideProps(map).forEach(prop => {
-      state[prop] = (map[prop] === "true") ? true : false;
+    getHideProps(map).forEach((prop) => {
+      state[prop] = map[prop] === "true" ? true : false;
     });
     state.numHiddenLayers = state.networkShape.length;
     if (state.seed == null) {
@@ -244,7 +255,7 @@ export class State {
   serialize() {
     // Serialize regular properties.
     let props: string[] = [];
-    State.PROPS.forEach(({name, type, keyMap}) => {
+    State.PROPS.forEach(({ name, type, keyMap }) => {
       let value = this[name];
       // Don't serialize missing values.
       if (value == null) {
@@ -252,14 +263,13 @@ export class State {
       }
       if (type === Type.OBJECT) {
         value = getKeyFromValue(keyMap, value);
-      } else if (type === Type.ARRAY_NUMBER ||
-          type === Type.ARRAY_STRING) {
+      } else if (type === Type.ARRAY_NUMBER || type === Type.ARRAY_STRING) {
         value = value.join(",");
       }
       props.push(`${name}=${value}`);
     });
     // Serialize properties that correspond to hiding UI controls.
-    getHideProps(this).forEach(prop => {
+    getHideProps(this).forEach((prop) => {
       props.push(`${prop}=${this[prop]}`);
     });
     window.location.hash = props.join("&");
