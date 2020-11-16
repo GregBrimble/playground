@@ -149,7 +149,7 @@ export class State {
   activation = nn.Activations.TANH;
   regularization: nn.RegularizationFunction = null;
   problem = Problem.CLASSIFICATION;
-  usePSO = false;
+  usePSO = true;
   psoParticles = 21;
   psoOmega = 0.7;
   psoAlpha1 = 2;
