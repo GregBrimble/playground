@@ -28,6 +28,7 @@ import {
 import { Example2D, shuffle } from "./dataset";
 import { AppendingLineChart } from "./linechart";
 import * as d3 from "d3";
+import { OptimizableNN, ParticleSwarmOptimizer } from "./pso";
 
 let mainWidth;
 
@@ -179,6 +180,7 @@ let iter = 0;
 let trainData: Example2D[] = [];
 let testData: Example2D[] = [];
 let network: nn.Node[][] = null;
+let pso: ParticleSwarmOptimizer = null;
 let lossTrain = 0;
 let lossTest = 0;
 let player = new Player();
@@ -1025,14 +1027,19 @@ function constructInput(x: number, y: number): number[] {
 
 function oneStep(): void {
   iter++;
-  trainData.forEach((point, i) => {
-    let input = constructInput(point.x, point.y);
-    nn.forwardProp(network, input);
-    nn.backProp(network, point.label, nn.Errors.SQUARE);
-    if ((i + 1) % state.batchSize === 0) {
-      nn.updateWeights(network, state.learningRate, state.regularizationRate);
-    }
-  });
+  if (state.usePSO) {
+    pso.update();
+    pso.optimisable.cost(pso.globalBest);
+  } else {
+    trainData.forEach((point, i) => {
+      let input = constructInput(point.x, point.y);
+      nn.forwardProp(network, input);
+      nn.backProp(network, point.label, nn.Errors.SQUARE);
+      if ((i + 1) % state.batchSize === 0) {
+        nn.updateWeights(network, state.learningRate, state.regularizationRate);
+      }
+    });
+  }
   // Compute the loss.
   lossTrain = getLoss(network, trainData);
   lossTest = getLoss(network, testData);
@@ -1086,6 +1093,11 @@ function reset(onStartup = false) {
   lossTest = getLoss(network, testData);
   drawNetwork(network);
   updateUI(true);
+
+  pso = new ParticleSwarmOptimizer(
+    new OptimizableNN(network, (net) => getLoss(net, trainData)),
+      state.psoOmega, state.psoAlpha1, state.psoAlpha2);
+  pso.initParticles(state.psoParticles);
 }
 
 function initTutorial() {
