@@ -28,6 +28,14 @@ export class Vector {
     return res;
   }
 
+  addScalar(other: number): Vector {
+    let res = new Vector(0);
+    for (let value of this.values) {
+      res.values.push(value + other);
+    }
+    return res;
+  }
+
   subtract(other: Vector): Vector {
     if (this.size() != other.size()) {
       throw new RangeError();
@@ -35,6 +43,14 @@ export class Vector {
     let res = new Vector(0);
     for (let i = 0; i < this.values.length; i++) {
       res.values.push(this.values[i] - other.values[i]);
+    }
+    return res;
+  }
+
+  subtractScalar(other: number): Vector {
+    let res = new Vector(0);
+    for (let value of this.values) {
+      res.values.push(value - other);
     }
     return res;
   }
@@ -52,8 +68,8 @@ export class Vector {
 
   multiplyScalar(other: number): Vector {
     let res = new Vector(0);
-    for (let i = 0; i < this.values.length; i++) {
-      res.values.push(this.values[i] * other);
+    for (let value of this.values) {
+      res.values.push(value * other);
     }
     return res;
   }

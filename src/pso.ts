@@ -2,9 +2,11 @@ import { Vector } from "./vector";
 import * as nn from "./nn";
 
 export interface Optimizable {
-   cost(state: Vector): number;
+   cost(): number;
 
-   state(): Vector;
+   getState(): Vector;
+
+   setState(state: Vector): void;
 }
 
 class Particle {
@@ -26,7 +28,8 @@ class Particle {
       .add(r1.multiplyScalar(this.pso.alpha1).multiply(this.localBest.subtract(this.x)))
       .add(r2.multiplyScalar(this.pso.alpha2).multiply(this.pso.globalBest.subtract(this.x)));
     this.x = this.x.add(this.v);
-    const cost = this.pso.optimisable.cost(this.x);
+    this.pso.optimisable.setState(this.x);
+    const cost = this.pso.optimisable.cost();
     if (cost < this.localBestCost) {
       this.localBestCost = cost;
       this.localBest = this.x;
@@ -53,7 +56,7 @@ export class ParticleSwarmOptimizer {
     this.omega = omega;
     this.alpha1 = alpha1;
     this.alpha2 = alpha2;
-    this.globalBest = optimizable.state().copy();
+    this.globalBest = optimizable.getState().copy();
   }
 
   initParticles(n: number): void {
@@ -82,7 +85,11 @@ export class OptimizableNN implements Optimizable {
     this.loss = loss;
   }
 
-  cost(state: Vector): number {
+  cost(): number {
+    return this.loss(this.net);
+  }
+
+  setState(state: Vector): void {
     let i = 0;
     for (let layer of this.net) {
       for (let node of layer) {
@@ -92,10 +99,9 @@ export class OptimizableNN implements Optimizable {
         }
       }
     }
-    return this.loss(this.net);
   }
 
-  state(): Vector {
+  getState(): Vector {
     let weights = new Vector(0);
     for (let layer of this.net) {
       for (let node of layer) {
