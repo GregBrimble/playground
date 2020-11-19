@@ -135,6 +135,7 @@ export class State {
     { name: "psoOmega", type: Type.NUMBER },
     { name: "psoAlpha1", type: Type.NUMBER },
     { name: "psoAlpha2", type: Type.NUMBER },
+    { name: "networkToView", type: Type.NUMBER },
   ];
 
   [key: string]: any;
@@ -154,6 +155,7 @@ export class State {
   psoOmega = 0.7;
   psoAlpha1 = 2;
   psoAlpha2 = 2;
+  networkToView = 0;
   initZero = false;
   hideText = false;
   collectStats = false;
