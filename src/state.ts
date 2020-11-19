@@ -159,17 +159,17 @@ export class State {
   collectStats = false;
   numHiddenLayers = 1;
   hiddenLayerControls: any[] = [];
-  networkShape: number[] = [4, 2];
+  networkShape: number[] = [6];
   x = true;
   y = true;
   xTimesY = false;
   xSquared = false;
   ySquared = false;
   cosX = false;
-  sinX = false;
+  sinX = true;
   cosY = false;
-  sinY = false;
-  dataset: dataset.DataGenerator = dataset.classifyCircleData;
+  sinY = true;
+  dataset: dataset.DataGenerator = dataset.classifySpiralData;
   regDataset: dataset.DataGenerator = dataset.regressPlane;
   seed: string;
 
