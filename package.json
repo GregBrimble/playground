@@ -13,7 +13,9 @@
     "watch-html": "concat index.html -o dist/index.html",
     "build-js": "browserify src/playground.ts -p [tsify] | uglifyjs -c > dist/bundle.js",
     "watch-js": "watchify src/playground.ts -p [tsify] -v --debug -o dist/bundle.js",
-    "build": "npm run prep && npm run build-js && npm run build-css && npm run build-html",
+    "build-pdf": "markdown-pdf -s report/report.css report/report.md",
+    "postbuild-pdf": "cp -r report dist/",
+    "build": "npm run prep && npm run build-js && npm run build-css && npm run build-html && npm run build-pdf",
     "watch": "npm run prep && concurrently \"npm run watch-js\" \"npm run watch-css\" \"npm run watch-html\"",
     "serve": "npx serve dist/",
     "serve-watch": "concurrently \"npx serve dist/\" \"npm run watch\""
@@ -23,6 +25,7 @@
     "concat": "^1.0.3",
     "concurrently": "3.1.0",
     "copyfiles": "1.0.0",
+    "markdown-pdf": "^10.0.0",
     "rimraf": "2.5.4",
     "serve": "^11.3.0",
     "tsify": "^4.0.0",
