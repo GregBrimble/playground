@@ -1029,7 +1029,7 @@ function oneStep(): void {
   iter++;
   if (state.usePSO) {
     pso.update();
-    pso.optimisable.cost(pso.globalBest);
+    pso.optimisable.setState(pso.globalBest);
   } else {
     trainData.forEach((point, i) => {
       let input = constructInput(point.x, point.y);
