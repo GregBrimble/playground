@@ -1096,7 +1096,10 @@ function reset(onStartup = false) {
 
   pso = new ParticleSwarmOptimizer(
     new OptimizableNN(network, (net) => getLoss(net, trainData)),
-      state.psoOmega, state.psoAlpha1, state.psoAlpha2);
+    state.psoOmega,
+    state.psoAlpha1,
+    state.psoAlpha2
+  );
   pso.initParticles(state.psoParticles);
 }
 
