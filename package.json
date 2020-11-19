@@ -14,7 +14,7 @@
     "build-js": "browserify src/playground.ts -p [tsify] | uglifyjs -c > dist/bundle.js",
     "watch-js": "watchify src/playground.ts -p [tsify] -v --debug -o dist/bundle.js",
     "build-pdf": "markdown-pdf -s report/report.css report/report.md",
-    "postbuild-pdf": "cp -r report dist/",
+    "postbuild-pdf": "cp -r report dist/ && rm dist/report/.gitignore",
     "build": "npm run prep && npm run build-js && npm run build-css && npm run build-html && npm run build-pdf",
     "watch": "npm run prep && concurrently \"npm run watch-js\" \"npm run watch-css\" \"npm run watch-html\"",
     "serve": "npx serve dist/",
