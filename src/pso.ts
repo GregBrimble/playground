@@ -2,11 +2,11 @@ import { Vector } from "./vector";
 import * as nn from "./nn";
 
 export interface Optimizable {
-   cost(): number;
+  cost(): number;
 
-   getState(): Vector;
+  getState(): Vector;
 
-   setState(state: Vector): void;
+  setState(state: Vector): void;
 }
 
 class Particle {
@@ -24,9 +24,18 @@ class Particle {
   }
 
   update(r1: Vector, r2: Vector): void {
-    this.v = this.v.multiplyScalar(this.pso.omega)
-      .add(r1.multiplyScalar(this.pso.alpha1).multiply(this.localBest.subtract(this.x)))
-      .add(r2.multiplyScalar(this.pso.alpha2).multiply(this.pso.globalBest.subtract(this.x)));
+    this.v = this.v
+      .multiplyScalar(this.pso.omega)
+      .add(
+        r1
+          .multiplyScalar(this.pso.alpha1)
+          .multiply(this.localBest.subtract(this.x))
+      )
+      .add(
+        r2
+          .multiplyScalar(this.pso.alpha2)
+          .multiply(this.pso.globalBest.subtract(this.x))
+      );
     this.x = this.x.add(this.v);
     this.pso.optimisable.setState(this.x);
     const cost = this.pso.optimisable.cost();
@@ -50,8 +59,13 @@ export class ParticleSwarmOptimizer {
   omega: number;
   alpha1: number;
   alpha2: number;
-  
-  constructor(optimizable: Optimizable, omega: number, alpha1: number, alpha2: number) {
+
+  constructor(
+    optimizable: Optimizable,
+    omega: number,
+    alpha1: number,
+    alpha2: number
+  ) {
     this.optimisable = optimizable;
     this.omega = omega;
     this.alpha1 = alpha1;
@@ -62,6 +76,7 @@ export class ParticleSwarmOptimizer {
   initParticles(n: number): void {
     this.particles = [];
     const size = this.globalBest.size();
+    console.log(size);
     for (let i = 0; i < n; i++) {
       this.particles.push(new Particle(this, Vector.uniform(size)));
     }

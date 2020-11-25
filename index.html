@@ -151,6 +151,13 @@ limitations under the License.
         </label>
       </div>
       <div class="control">
+        <label for="stopAt">Stop at (0 to disable)</label>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="number" min="0" max="1000" step="1" id="stopAt">
+          <span class="mdl-textfield__error">Input is not a number!</span>
+        </div>
+      </div>
+      <div class="control">
         <label for="psoParticles">Number of particles</label>
         <div class="mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="number" min="1" max="100" step="1" id="psoParticles">

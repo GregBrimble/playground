@@ -389,6 +389,14 @@ function makeGUI() {
   });
   usePSO.property("value", state.usePSO);
 
+  let stopAt = d3.select("#stopAt").on("change", function () {
+    state.stopAt = +this.value;
+    state.serialize();
+    userHasInteracted();
+    parametersChanged = true;
+  });
+  stopAt.property("value", state.stopAt);
+
   let psoParticles = d3.select("#psoParticles").on("change", function () {
     state.psoParticles = +this.value;
     state.serialize();
@@ -1035,6 +1043,7 @@ function constructInput(x: number, y: number): number[] {
 }
 
 function oneStep(): void {
+  if (state.stopAt > 0 && iter >= state.stopAt) return;
   iter++;
   if (state.usePSO) {
     pso.update();

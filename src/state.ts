@@ -130,6 +130,7 @@ export class State {
     { name: "problem", type: Type.OBJECT, keyMap: problems },
     { name: "initZero", type: Type.BOOLEAN },
     { name: "hideText", type: Type.BOOLEAN },
+    { name: "stopAt", type: Type.NUMBER },
     { name: "usePSO", type: Type.BOOLEAN },
     { name: "psoParticles", type: Type.NUMBER },
     { name: "psoOmega", type: Type.NUMBER },
@@ -150,6 +151,7 @@ export class State {
   activation = nn.Activations.TANH;
   regularization: nn.RegularizationFunction = null;
   problem = Problem.CLASSIFICATION;
+  stopAt = 0;
   usePSO = true;
   psoParticles = 21;
   psoOmega = 0.7;
