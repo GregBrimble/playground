@@ -19,9 +19,9 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
-      - uses: docker://pandoc/latex:2.9
+      - uses: maxheld83/pandoc@v2
         with:
-          args: report/report.md -o report/report.pdf --resource-path report/
+          args: "report/report.md -o report/report.pdf --resource-path report/"
       - name: Post Build
         run: npm run postbuild-pdf
       - name: Deploy

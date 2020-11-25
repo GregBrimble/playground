@@ -4,8 +4,6 @@
 
 ## Task 1
 
-Blarg
-
 ### 1.1 Fitness Function
 
 We used the following error function when training the neural network:
@@ -47,7 +45,7 @@ Figure \ref{pso_1000} clearly demonstrates that no further significant improveme
 
 ![PSO after 1000 iterations\label{pso_1000}](./assets/pso_25_05_2_2_1000.png){ width=45% }
 
-Using a higher $\omega$ value results in stuttered learning (best seen in the loss sparkline) and a poorer model, as demonstrated in Figure \ref{pso_08}.
+Using a higher $\omega$ value results in stuttered learning (best seen in the loss sparkline) and a generally poorer model, as demonstrated in Figure \ref{pso_08}.
 
 ![PSO with a higher $\omega = 0.8$\label{pso_08}](./assets/pso_25_08_2_2_350.png){ width=45% }
 
