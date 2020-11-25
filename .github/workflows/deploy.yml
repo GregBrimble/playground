@@ -19,6 +19,11 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - uses: docker://pandoc/latex:2.9
+        with:
+          args: report/report.md -o report/report.pdf --resource-path report/
+      - name: Post Build
+        run: npm run postbuild-pdf
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:

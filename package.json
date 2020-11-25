@@ -13,9 +13,10 @@
     "watch-html": "concat index.html -o dist/index.html",
     "build-js": "browserify src/playground.ts -p [tsify] | uglifyjs -c > dist/bundle.js",
     "watch-js": "watchify src/playground.ts -p [tsify] -v --debug -o dist/bundle.js",
-    "build-pdf": "markdown-pdf -s report/report.css report/report.md",
+    "build-pdf": "pandoc report/report.md -o report/report.pdf --resource-path report/",
     "postbuild-pdf": "cp -r report dist/ && rm dist/report/.gitignore",
-    "build": "npm run prep && npm run build-js && npm run build-css && npm run build-html && npm run build-pdf",
+    "build": "npm run prep && npm run build-js && npm run build-css && npm run build-html",
+    "build-all": "npm run prep && npm run build-js && npm run build-css && npm run build-html && npm run build-pdf",
     "watch": "npm run prep && concurrently \"npm run watch-js\" \"npm run watch-css\" \"npm run watch-html\"",
     "serve": "npx serve dist/",
     "serve-watch": "concurrently \"npx serve dist/\" \"npm run watch\""
