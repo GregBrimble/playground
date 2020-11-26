@@ -127,3 +127,5 @@ In this implementation crossover is essential as the the mutation that can be ma
 The most essential improvement would be making the fitness metric accurate. The mean squared error would have to averaged over many runs, something that would require significantly more compute.
 
 We could also add additional operations to the mutation part of the GP algorithm. Examples include growing and shrinking the tree, and changing the node type (e.g. Function to Layer).
+
+To limit the growth of the network we could penalise or hard-limit the size of the network after crossover and mutation.
