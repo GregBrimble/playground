@@ -21,7 +21,7 @@ jobs:
         run: npm run build
       - uses: maxheld83/pandoc@v2
         with:
-          args: "report/report.md -o report/report.pdf --resource-path report/"
+          args: "-H report.tex report/report.md -o report/report.pdf --resource-path report/ -V geometry:margin=3cm"
       - name: Post Build
         run: npm run postbuild-pdf
       - name: Deploy

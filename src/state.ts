@@ -153,8 +153,8 @@ export class State {
   problem = Problem.CLASSIFICATION;
   stopAt = 0;
   usePSO = true;
-  psoParticles = 21;
-  psoOmega = 0.7;
+  psoParticles = 25;
+  psoOmega = 0.5;
   psoAlpha1 = 2;
   psoAlpha2 = 2;
   networkToView = 0;
