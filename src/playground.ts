@@ -180,7 +180,6 @@ let iter = 0;
 let trainData: Example2D[] = [];
 let testData: Example2D[] = [];
 let network: nn.Node[][] = null;
-let networks: nn.Node[][][] = [];
 let pso: ParticleSwarmOptimizer = null;
 let lossTrain = 0;
 let lossTest = 0;
@@ -428,14 +427,6 @@ function makeGUI() {
     parametersChanged = true;
   });
   psoAlpha2.property("value", state.psoAlpha2);
-
-  let networkToView = d3.select("#networkToView").on("change", function () {
-    state.networkToView = +this.value;
-    state.serialize();
-    userHasInteracted();
-    parametersChanged = true;
-  });
-  networkToView.property("value", state.networkToView);
 
   // Add scale to the gradient color map.
   let x = d3.scale.linear().domain([-1, 1]).range([0, 144]);
@@ -1107,7 +1098,6 @@ function reset(onStartup = false) {
     constructInputIds(),
     state.initZero
   );
-  networks = [network];
   lossTrain = getLoss(network, trainData);
   lossTest = getLoss(network, testData);
   drawNetwork(network);
