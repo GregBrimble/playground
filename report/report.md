@@ -71,9 +71,14 @@ And finally, increasing the number of particles did improve the training and tes
 
 ## Task 2
 
+Task 2 was completed in the attached Jupyter Notebook, **not** in the Tensorflow Playground. The neural network itself is trained using a standard gradient-descent and had six inputs: the same four as in the PSO task, as well as $x^2$ and $y^2$.
+
 ### 2.1 Evolving the Network Structure
 
-To create a neural network which could be structurally evolved with GP, we first set the number of hidden layers to 4. This operates as an upper limit, where evolution is free to choose the number of nodes in each layer (its width), and if zero or one, the layer is essentially non-existent.
+To create a neural network which could be structurally evolved with GP, we firmly set the number of hidden layers to 4. Although this sounds like it would be too prescriptive, this value actually operates as an upper limit, where evolution is free to choose the number of nodes in each layer, and if zero or one, the layer is omitted.
+
+The structure is encoded in a simple list of integers representing the width of each hidden layer at that index. For example,
+`[2, 3, 1, 4]` has a three hidden layers, with two nodes in the first, three in the second, (the third is omitted), and four in the final.
 
 ### 2.2 Further Evolutions
 
@@ -81,9 +86,19 @@ We decided not to do optimizations on the learning rate or batch size. These wer
 
 ### 2.3 Operators and Parameters of GA and Their Performance
 
+The genetic algorithm uses uniform crossover, with a 90% probability of crossover, and 5% of mutation. We evaluated fitness as follows:
+
+$$f = \frac{1}{1 + \text{MSE}}$$
+
+Where MSE is the mean squared error. In the best performing network we generated, we obtained a mean squared error of 1.719, (fitness of 0.368) and a distinctly spiral-shaped model, as seen in Figure \ref{ga}.
+
+![GA\label{ga}](./assets/ga.png){ width=25% }
+
 ### 2.4 Controlling Complexity
 
 Upper limits were placed on the number of hidden layers, 4, and of each layers' width, 8. This helped to constrain the network shape, ensuring it didn't become too complex for the problem.
+
+The neural network pictured in Figure \ref{ga} had a hidden layer network structure of `[1, 3, 8, 7]`. Since the first layer is only one node, it is actually omitted, giving an actual structure of `[3, 8, 7]`. Inspecting the nodes in that first hidden layer revealed that one node was highly dependant on the nonlinear inputs, and was primarily responsible for drawing the blue ring seen in the model. This was propagated through the rest of the network, while the rest of the nodes' influences were minimized.
 
 ## Task 3
 
