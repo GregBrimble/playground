@@ -1099,26 +1099,15 @@ function reset(onStartup = false) {
     state.problem === Problem.REGRESSION
       ? nn.Activations.LINEAR
       : nn.Activations.TANH;
-  networks = [
-    nn.buildNetwork(
-      shape,
-      state.activation,
-      outputActivation,
-      state.regularization,
-      constructInputIds(),
-      state.initZero
-    ),
-    nn.buildNetwork(
-      shape,
-      state.activation,
-      outputActivation,
-      state.regularization,
-      constructInputIds(),
-      state.initZero
-    ),
-  ];
-  network = networks[state.networkToView];
-
+  network = nn.buildNetwork(
+    shape,
+    state.activation,
+    outputActivation,
+    state.regularization,
+    constructInputIds(),
+    state.initZero
+  );
+  networks = [network];
   lossTrain = getLoss(network, trainData);
   lossTest = getLoss(network, testData);
   drawNetwork(network);
