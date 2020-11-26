@@ -71,7 +71,7 @@ And finally, increasing the number of particles did improve the training and tes
 
 ## Task 2
 
-Task 2 was completed in the attached Jupyter Notebook, **not** in the Tensorflow Playground. The neural network itself is trained using a standard gradient-descent and had six inputs: the same four as in the PSO task, as well as $x^2$ and $y^2$.
+Task 2 was completed in the attached Jupyter Notebook, **not** in the Tensorflow Playground. The neural network itself is trained using a stochastic gradient-descent and had six inputs: the same four as in the PSO task, as well as $x^2$ and $y^2$.
 
 ### 2.1 Evolving the Network Structure
 
@@ -104,7 +104,7 @@ The neural network pictured in Figure \ref{ga} had a hidden layer network struct
 
 ### 3.1 Additional Node Functions
 
-Each node in the expression tree evolved can perform one of four transformation types: A Layer of `tanh` neurons, a mathematical Function, a Concatenation of the outputs of two parent nodes, and provide the Input of the network (terminal node). The root of the tree is always a Layer of width one, as this is a single class problem. The GP  algorithm can choose the function (sin or square) and the layer width (1-8 neurons). Using concatenation the algorithm can choose different transformations for parts of the same "layer".
+Each node in the expression tree evolved can perform one of four transformation types: A Layer of `tanh` neurons, a mathematical Function, a Concatenation of the outputs of two parent nodes, and provide the Input of the network (terminal node). The root of the tree is always a Layer of width one, as this is a single class problem. The GP algorithm can choose the function (sin or square) and the layer width (1-8 neurons). Using concatenation the algorithm can choose different transformations for parts of the same "layer".
 
 ### 3.2 Operators and Parameters of GP and Their Performance
 
