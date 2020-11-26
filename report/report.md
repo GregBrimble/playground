@@ -33,7 +33,7 @@ We defined our neural network as having:
 - a single hidden layer with six nodes,
 - and a single output node.
 
-With each having a bias (11), and the final two layers having a combined 30 weights ($1 * 6 + 6 * 4 = 30$) this creates a search space of 41 dimensions ($11 + 30 = 41$) for our PSO implementation to solve.
+With each having a bias (11), and the final two layers having a combined 30 weights ($1 * 6 + 6 * 4 = 30$) this creates a search space of 41 dimensions ($11 + 30 = 41$) for our PSO implementation to solve. Note however, that the biases in the four input nodes are not used in the actual calculation, so 'optimizing' these four dimensions has no effect. The 'true' dimensionality of the problem is therefore 37, despite our implementation optimizing for 41.
 
 ### 1.3 Results
 
@@ -73,13 +73,17 @@ And finally, increasing the number of particles did improve the training and tes
 
 ### 2.1 Evolving the Network Structure
 
-To create a neural network which could be evolved with GP, we first set the maximum number of hidden layers as 8. And
+To create a neural network which could be structurally evolved with GP, we first set the number of hidden layers to 4. This operates as an upper limit, where evolution is free to choose the number of nodes in each layer (its width), and if zero or one, the layer is essentially non-existent.
 
 ### 2.2 Further Evolutions
+
+We decided not to do optimizations on the learning rate or batch size. These were kept at a constant 0.03 and 8, respectively.
 
 ### 2.3 Operators and Parameters of GA and Their Performance
 
 ### 2.4 Controlling Complexity
+
+Upper limits were placed on the number of hidden layers, 4, and of each layers' width, 8. This helped to constrain the network shape, ensuring it didn't become too complex for the problem.
 
 ## Task 3
 
