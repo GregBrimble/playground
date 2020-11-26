@@ -59,11 +59,9 @@ Using a higher $\omega$ value results in stuttered learning (best seen in the lo
 
 ![PSO with a higher $\omega = 0.8$\label{pso_08}](./assets/pso_25_08_2_2_350.png){ width=25% }
 
-Significantly changing $\alpha_1$ and $\alpha_2$ seriously hampered the ability for the model to train. Figure \ref{pso_3} and \ref{pso_1} demonstrate using $\alpha_1 = \alpha_2 = 3$ and $\alpha_1 = \alpha_2 = 1$ respectively.
+Significantly changing $\alpha_1$ and $\alpha_2$ seriously hampered the ability for the model to train. Figure \ref{pso_alphas} demonstrate using $\alpha_1 = \alpha_2 = 1$ (left) and $\alpha_1 = \alpha_2 = 3$ (right).
 
-![PSO with $\alpha_1 = \alpha_2 = 3$\label{pso_3}](./assets/pso_25_05_3_3_350.png){ width=25% }
-
-![PSO with $\alpha_1 = \alpha_2 = 1$\label{pso_1}](./assets/pso_25_05_1_1_350.png){ width=25% }
+![PSO with $\alpha_1 = \alpha_2 = 1$ (left) and $\alpha_1 = \alpha_2 = 3$ (right)\label{pso_alphas}](./assets/pso_alphas.png){ width=50% }
 
 And finally, increasing the number of particles did improve the training and test loss, but begins to show signs of overfitting to the data (Figure \ref{pso_100}).
 
