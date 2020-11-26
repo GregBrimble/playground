@@ -41,33 +41,33 @@ Our adapted Tensorflow Playground ([original](https://playground.tensorflow.org/
 
 With this configuration, Figure \ref{pso_350} renders a sample output after 350 iterations.
 
-![PSO after 350 iterations\label{pso_350}](./assets/pso_25_05_2_2_350.png){ width=45% }
+![PSO after 350 iterations\label{pso_350}](./assets/pso_25_05_2_2_350.png){ width=35% }
 
 Figure \ref{pso_1000} clearly demonstrates that no further significant improvements are made to the model beyond approximately 350 iterations.
 
-![PSO after 1000 iterations\label{pso_1000}](./assets/pso_25_05_2_2_1000.png){ width=45% }
+![PSO after 1000 iterations\label{pso_1000}](./assets/pso_25_05_2_2_1000.png){ width=35% }
 
 ### 1.4 Comparison against Linear Inputs
 
 Restricting the network to only linear inputs ($x$ and $y$) significantly curtails the model's ability to fit to the spiral training data. As seen in Figure \ref{pso_linear}, the minimum training loss is quickly reached, with very little improvement seen with future iterations. The model itself is functionally very simple: practically a 50/50 divide along the spirals' centers.
 
-![PSO trained with linear features\label{pso_linear}](./assets/pso_25_05_2_2_350_linear.png){ width=45% }
+![PSO trained with linear features\label{pso_linear}](./assets/pso_25_05_2_2_350_linear.png){ width=35% }
 
 ### 1.5 Effect of PSO Parameters
 
 Using a higher $\omega$ value results in stuttered learning (best seen in the loss sparkline) and a generally poorer model, as demonstrated in Figure \ref{pso_08}.
 
-![PSO with a higher $\omega = 0.8$\label{pso_08}](./assets/pso_25_08_2_2_350.png){ width=45% }
+![PSO with a higher $\omega = 0.8$\label{pso_08}](./assets/pso_25_08_2_2_350.png){ width=35% }
 
 Significantly changing $\alpha_1$ and $\alpha_2$ seriously hampered the ability for the model to train. Figure \ref{pso_3} and \ref{pso_1} demonstrate using $\alpha_1 = \alpha_2 = 3$ and $\alpha_1 = \alpha_2 = 1$ respectively.
 
-![PSO with $\alpha_1 = \alpha_2 = 3$\label{pso_3}](./assets/pso_25_05_3_3_350.png){ width=45% }
+![PSO with $\alpha_1 = \alpha_2 = 3$\label{pso_3}](./assets/pso_25_05_3_3_350.png){ width=35% }
 
-![PSO with $\alpha_1 = \alpha_2 = 1$\label{pso_1}](./assets/pso_25_05_1_1_350.png){ width=45% }
+![PSO with $\alpha_1 = \alpha_2 = 1$\label{pso_1}](./assets/pso_25_05_1_1_350.png){ width=35% }
 
 And finally, increasing the number of particles did improve the training and test loss, but begins to show signs of overfitting to the data (Figure \ref{pso_100}).
 
-![PSO with 100 particles\label{pso_100}](./assets/pso_100_05_2_2_350.png){ width=45% }
+![PSO with 100 particles\label{pso_100}](./assets/pso_100_05_2_2_350.png){ width=35% }
 
 ## Task 2
 
