@@ -82,7 +82,7 @@ The structure is encoded in a simple list of integers representing the width of 
 
 ### 2.2 Further Evolutions
 
-We decided not to do optimizations on the learning rate or batch size. These were kept at a constant 0.03 and 8, respectively.
+We decided not to do optimizations on the learning rate or batch size. After investigating their effects in the Tensorflow Playground, we selected a constant 0.03 and 8, respectively.
 
 ### 2.3 Operators and Parameters of GA and Their Performance
 
@@ -98,7 +98,7 @@ Where MSE is the mean squared error. In the best performing network we generated
 
 Upper limits were placed on the number of hidden layers, 4, and of each layers' width, 8. This helped to constrain the network shape, ensuring it didn't become too complex for the problem.
 
-The neural network pictured in Figure \ref{ga} had a hidden layer network structure of `[1, 3, 8, 7]`. Since the first layer is only one node, it is actually omitted, giving an actual structure of `[3, 8, 7]`. Inspecting the nodes in that first hidden layer revealed that one node was highly dependant on the nonlinear inputs, and was primarily responsible for drawing the blue ring seen in the model. This was propagated through the rest of the network, while the rest of the nodes' influences were minimized.
+The neural network pictured in Figure \ref{ga} had a hidden layer network structure of `[1, 3, 8, 7]`. Since the first layer is only one node, it is actually omitted, giving a true structure of `[3, 8, 7]`. Inspecting the nodes in that first hidden layer revealed that one node was highly dependant on the nonlinear inputs, and was primarily responsible for drawing the blue ring seen in the model. This was propagated through the rest of the network, while the rest of the nodes' influences were minimized.
 
 ## Task 3
 
