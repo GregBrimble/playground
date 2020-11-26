@@ -89,10 +89,28 @@ Upper limits were placed on the number of hidden layers, 4, and of each layers' 
 
 ### 3.1 Additional Node Functions
 
+Each node in the expression tree evolved can perform one of four transformation types: A Layer of `tanh` neurons, a mathematical Function, a Concatenation of the outputs of two parent nodes, and provide the Input of the network (terminal node). The root of the tree is always a Layer of width one, as this is a single class problem. The GP  algorithm can choose the function (sin or square) and the layer width (1-8 neurons). Using concatenation the algorithm can choose different transformations for parts of the same "layer".
+
 ### 3.2 Operators and Parameters of GP and Their Performance
 
-### 3.3 Comparison with GA
+The algorithm can perform crossover and mutation. In crossover, a random sub-tree is selected and swapped for each tree. For mutation, the width of a Layer node and the function of the Function node can be varied.
 
-### 3.4 Comparison with Cartesian Genetic Programs (CGPs)
+The obtained performance is poor, as the initial population is unusual (compared to something a human would design) and the fitness metric can vary considerably based on the random initialisation of weights, so the algorithm can't consistently find out the best architectures.
+
+### 3.3 Evolution from scratch or pre-evolved network
+
+In both cases performance is poor as the fitness metric is useless. Hence after a few generations the population will be distorted.
+
+In the current implementation the training epochs are fixed. In addition to the mean squared error, one could consider the minimum number of training epochs needed to reach an acceptable accuracy. The simplicity of a network is also something that needs to be considered when considering which is better e.g. one with fewer layers would be preferred.
+
+### 3.4 Observations related to Cartesian Genetic Programs (CGPs)
+
+The algorithm evolves long-thin architectures as it is limited to 8 neurons in width (but no limit in depth during crossover), however it is not clear whether they are better, as the fitness metric is useless. Empirically we can tell that in the context of neural networks deep architectures are harder to train so we would expect worse performance for simpler problems.
+
+In this implementation crossover is essential as the the mutation that can be made are limited. If more complex mutations were supported, they could mimic crossover by generating random sub-trees and swapping them with existing sub-trees. Hence distinct crossover would not be strictly needed.
 
 ### 3.5 Future Work
+
+The most essential improvement would be making the fitness metric accurate. The mean squared error would have to averaged over many runs, something that would require significantly more compute.
+
+We could also add additional operations to the mutation part of the GP algorithm. Examples include growing and shrinking the tree, and changing the node type (e.g. Function to Layer).
